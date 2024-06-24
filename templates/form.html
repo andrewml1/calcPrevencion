@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDRISC Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Formulario FINDRISC</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="age">Edad</label>
+                <select class="form-control" id="age" name="age">
+                    <option value="0">Menos de 45 años</option>
+                    <option value="2">45-54 años</option>
+                    <option value="3">55-64 años</option>
+                    <option value="4">65 años o más</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="bmi">Índice de Masa Corporal (IMC)</label>
+                <select class="form-control" id="bmi" name="bmi">
+                    <option value="0">Menos de 25 kg/m²</option>
+                    <option value="1">25-30 kg/m²</option>
+                    <option value="3">Más de 30 kg/m²</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="waist">Perímetro Abdominal</label>
+                <select class="form-control" id="waist" name="waist">
+                    <option value="0">Menos de 94 cm (hombres) / 80 cm (mujeres)</option>
+                    <option value="3">94-102 cm (hombres) / 80-88 cm (mujeres)</option>
+                    <option value="4">Más de 102 cm (hombres) / 88 cm (mujeres)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="physical_activity">Actividad Física Regular</label>
+                <select class="form-control" id="physical_activity" name="physical_activity">
+                    <option value="0">Sí</option>
+                    <option value="2">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fruit_vegetables">Consumo Diario de Frutas y Verduras</label>
+                <select class="form-control" id="fruit_vegetables" name="fruit_vegetables">
+                    <option value="0">Sí</option>
+                    <option value="1">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hypertension_meds">Medicamentos para la Hipertensión</label>
+                <select class="form-control" id="hypertension_meds" name="hypertension_meds">
+                    <option value="0">No</option>
+                    <option value="2">Sí</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="high_glucose">Historial de Hiperglucemia</label>
+                <select class="form-control" id="high_glucose" name="high_glucose">
+                    <option value="0">No</option>
+                    <option value="5">Sí</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="family_diabetes">Historial Familiar de Diabetes</label>
+                <select class="form-control" id="family_diabetes" name="family_diabetes">
+                    <option value="0">No</option>
+                    <option value="3">Sí: abuelos, tías/os, primos/as</option>
+                    <option value="5">Sí: padres, hermanos/as, hijos/as</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular Riesgo</button>
+        </form>
+
+        {% if score is not none %}
+        <div class="mt-4">
+            <h3>Su puntaje FINDRISC es: {{ score }}</h3>
+            <p>Nivel de riesgo: {{ risk }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
