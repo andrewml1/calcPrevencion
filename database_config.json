@@ -1,0 +1,16 @@
+{
+    "admin": {
+        "database": "d4oti473lkfeqe",
+        "user": "apwmaqwizgzpig",
+        "password": "279eb6fce34af100499098822bf7dbdfa95cf696df022f0cf28f7ddddc800c3b",
+        "host": "ec2-52-206-36-147.compute-1.amazonaws.com",
+        "port": "5432"
+    },
+    "prosalco": {
+        "database": "d8mb8mfvhij0ql",
+        "user": "psuqnnxnlfitkv",
+        "password": "806aad31f26390db41d236bb45b2dd16996b99b823808cb73eb5aeab2c7a73ac",
+        "host": "ec2-54-145-174-66.compute-1.amazonaws.com",
+        "port": "5432"
+    }
+}

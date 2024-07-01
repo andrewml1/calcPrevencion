@@ -1,4 +1,6 @@
+import os
 from flask import Flask, render_template, request
+from basedatos import guardar_datos, credenciales
 
 app = Flask(__name__)
 
@@ -56,13 +58,22 @@ def findrisc_form():
         if score < 7:
             risk = "Bajo (aproximadamente 1% de riesgo en los próximos 10 años)"
         elif 7 <= score <= 11:
-            risk = "Ligeramente elevado (aproximadamente 4%)"
+            risk = "Ligeramente elevado (aproximadamente 4% de riesgo en los próximos 10 años)"
         elif 12 <= score <= 14:
-            risk = "Moderado (aproximadamente 16%)"
+            risk = "Moderado (aproximadamente 16% de riesgo en los próximos 10 años)"
         elif 15 <= score <= 20:
-            risk = "Alto (aproximadamente 33%)"
+            risk = "Alto (aproximadamente 33% de riesgo en los próximos 10 años)"
         else:
-            risk = "Muy alto (aproximadamente 50%)"
+            risk = "Muy alto (aproximadamente 50% de riesgo en los próximos 10 años)"
+
+        baseDatos="prosalco"
+
+        cred = credenciales(baseDatos)
+
+        guardar_datos(id_number, age, height, weight, waist, request.form['gender'], bmi_score, waist_score,
+                      physical_activity, fruit_vegetables, hypertension_meds, high_glucose,
+                      family_diabetes, age_score, score, risk, bmi, cred)
+
 
         return render_template('form.html', score=score, risk=risk, id_number=id_number, bmi=round(bmi, 2))
 
@@ -70,4 +81,4 @@ def findrisc_form():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=os.environ.get("PORT", 5000))
