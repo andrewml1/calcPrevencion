@@ -179,13 +179,14 @@
 
     <script>
         // Scroll hacia la sección de resultados si el puntaje no es None
-        document.addEventListener("DOMContentLoaded", function() {
+        window.addEventListener("load", function() {
             var resultSection = document.getElementById('result-section');
             if (resultSection) {
                 resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     </script>
+
 </div>
 </body>
 </html>
