@@ -4,7 +4,6 @@ from basedatos import guardar_datos, credenciales
 
 app = Flask(__name__)
 
-
 @app.route('/', methods=['GET', 'POST'])
 def findrisc_form():
     if request.method == 'POST':
@@ -67,18 +66,28 @@ def findrisc_form():
             risk = "Muy alto (aproximadamente 50% de riesgo en los próximos 10 años)"
 
         baseDatos="prosalco"
-
         cred = credenciales(baseDatos)
+
+        tobacco_use = int(request.form['tobacco_use'])
+        personal_cv_disease = int(request.form['personal_cv_disease'])
+        family_cv_disease_young = int(request.form['family_cv_disease_young'])
+        cholesterol_meds = int(request.form['cholesterol_meds'])
+        pregnancy = int(request.form['pregnancy'])
+        cancer_hemophilia_steroids = int(request.form['cancer_hemophilia_steroids'])
+
+        if age < 18 or age > 74 or pregnancy == 1 or cancer_hemophilia_steroids == 1:
+            score=0
+            risk="No se puede calcular el score"
 
         guardar_datos(id_number, age, height, weight, waist, request.form['gender'], bmi_score, waist_score,
                       physical_activity, fruit_vegetables, hypertension_meds, high_glucose,
-                      family_diabetes, age_score, score, risk, bmi, cred)
+                      family_diabetes, age_score, score, risk, bmi, tobacco_use, personal_cv_disease,
+                      family_cv_disease_young, cholesterol_meds, pregnancy, cancer_hemophilia_steroids, cred)
 
+        return render_template('form.html', score=score, risk=risk, id_number=id_number, bmi=round(bmi, 2), age=age, pregnancy=pregnancy, cancer_hemophilia_steroids=cancer_hemophilia_steroids)
 
-        return render_template('form.html', score=score, risk=risk, id_number=id_number, bmi=round(bmi, 2))
-
-    return render_template('form.html')
-
+    # Asegurarse de pasar las variables con valores por defecto cuando GET
+    return render_template('form.html', score=None, risk=None, id_number=None, bmi=None, age=None, pregnancy=None, cancer_hemophilia_steroids=None)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=os.environ.get("PORT", 5000))

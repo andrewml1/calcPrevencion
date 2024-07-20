@@ -55,7 +55,13 @@ def crearTablasPostgres(credenciales):
                 bmi REAL,
                 bmi_score INTEGER,
                 waist_score INTEGER,
-                age_score INTEGER
+                age_score INTEGER,
+                tobacco_use INTEGER,
+                personal_cv_disease INTEGER,
+                family_cv_disease_young INTEGER,
+                cholesterol_meds INTEGER,
+                pregnancy INTEGER,
+                cancer_hemophilia_steroids INTEGER
             );
         ''')
 
@@ -65,7 +71,9 @@ def crearTablasPostgres(credenciales):
 
 def guardar_datos(id_number, age, height, weight, waist, gender, bmi_score, waist_score,
                       physical_activity, fruit_vegetables, hypertension_meds, high_glucose,
-                      family_diabetes, age_score, score, risk, bmi, credenciales):
+                      family_diabetes, age_score, score, risk, bmi, tobacco_use,personal_cv_disease,
+                      family_cv_disease_young,cholesterol_meds,pregnancy,cancer_hemophilia_steroids,
+                  credenciales):
 
         conn = psycopg2.connect(
             database=credenciales["database"],
@@ -81,12 +89,14 @@ def guardar_datos(id_number, age, height, weight, waist, gender, bmi_score, wais
             INSERT INTO findrisc (
                 id_number, age, height, weight, waist, gender, bmi_score, waist_score,
                 physical_activity, fruit_vegetables, hypertension_meds, high_glucose,
-                family_diabetes, age_score, score, risk, bmi
+                family_diabetes, age_score, score, risk, bmi,tobacco_use,personal_cv_disease,
+                      family_cv_disease_young,cholesterol_meds,pregnancy,cancer_hemophilia_steroids
             )
             VALUES (
                 '{id_number}', {age}, {height}, {weight}, {waist}, '{gender}', {bmi_score}, {waist_score},
                 {physical_activity}, {fruit_vegetables}, {hypertension_meds}, {high_glucose},
-                {family_diabetes}, {age_score}, {score}, '{risk}', {bmi}
+                {family_diabetes}, {age_score}, {score}, '{risk}', {bmi},{tobacco_use},{personal_cv_disease},
+                {family_cv_disease_young},{cholesterol_meds},{pregnancy},{cancer_hemophilia_steroids}
             )
         """
 

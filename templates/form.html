@@ -73,8 +73,6 @@
         }
 
     </style>
-
-
 </head>
 <body>
 <div class="container mt-5">
@@ -163,19 +161,89 @@
                     <option value="5">Sí: padres, hermanos/as, hijos/as</option>
                 </select>
             </div>
+            <div class="col-md-6">
+                <label for="tobacco_use">Consume cigarrillo o tabaco?</label>
+                <select class="form-control" id="tobacco_use" name="tobacco_use">
+                    <option value="0">No</option>
+                    <option value="1">Sí</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="personal_cv_disease">¿Tiene usted antecedente personal de enfermedad cardiovascular (Infarto cerebral o cardiaco)?</label>
+                <select class="form-control" id="personal_cv_disease" name="personal_cv_disease">
+                    <option value="0">No</option>
+                    <option value="1">Sí</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="family_cv_disease_young">¿Alguno de sus familiares ha sufrido de enfermedad cardiovascular estando joven (hombre < 55 y mujer < 65)?</label>
+                <select class="form-control" id="family_cv_disease_young" name="family_cv_disease_young">
+                    <option value="0">No</option>
+                    <option value="1">Sí</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+
+            <div class="col-md-6">
+                <label for="cholesterol_meds">¿Toma usted medicamentos para el colesterol?</label>
+                <select class="form-control" id="cholesterol_meds" name="cholesterol_meds">
+                    <option value="0">No</option>
+                    <option value="1">Sí</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="pregnancy">¿Está usted en embarazo?</label>
+                <select class="form-control" id="pregnancy" name="pregnancy">
+                    <option value="0">No</option>
+                    <option value="1">Sí</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label for="cancer_hemophilia_steroids">¿Tiene antecedentes de cáncer, hemofilia o uso de esteroides?</label>
+                <select class="form-control" id="cancer_hemophilia_steroids" name="cancer_hemophilia_steroids">
+                    <option value="0">No</option>
+                    <option value="1">Sí</option>
+                </select>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">Calcular Riesgo</button>
     </form>
 
-    {% if score is not none %}
-    <div id="result-section" class="mt-4">
-        <h3>Su puntaje FINDRISC es: {{ score }}</h3>
-        <p>Nivel de riesgo: {{ risk }}</p>
-        <p>Cédula de Ciudadanía: {{ id_number }}</p>
-        <p>IMC: {{ bmi }}</p>
-    </div>
+{% if score is not none %}
+    {% if age < 18 or age > 74 or pregnancy == 1 or cancer_hemophilia_steroids == 1 %}
+        <div id="result-section" class="mt-4">
+            <h3>No es posible calcular FINDRISC</h3>
+            <p>No es posible calcular el riesgo FINDRISC porque usted:</p>
+            <ul>
+                {% if age < 18 or age > 74 %}
+                    <li>Es menor de 18 o mayor de 74 años</li>
+                {% endif %}
+                {% if pregnancy == 1 %}
+                    <li>Está en embarazo</li>
+                {% endif %}
+                {% if cancer_hemophilia_steroids == 1 %}
+                    <li>Tiene antecedentes de cáncer, hemofilia o uso de esteroides</li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        <div id="result-section" class="mt-4">
+            <h3>Su puntaje FINDRISC es: {{ score }}</h3>
+            <p>Nivel de riesgo: {{ risk }}</p>
+            <p>Cédula de Ciudadanía: {{ id_number }}</p>
+            <p>IMC: {{ bmi }}</p>
+        </div>
     {% endif %}
+{% endif %}
 
     <script>
         // Scroll hacia la sección de resultados si el puntaje no es None
